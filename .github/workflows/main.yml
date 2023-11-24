@@ -23,6 +23,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Create Env File
+        run: |
+          echo "NEXT_PUBLIC_SERVICE_DOMAIN=${{secrets.NEXT_PUBLIC_SERVICE_DOMAIN}}" >> .env
+          echo "NEXT_PUBLIC_API_KEY=${{secrets.NEXT_PUBLIC_API_KEY}}" >> .env
+
       - name: Build
         run: npm run build
       - name: Debug
@@ -31,10 +36,7 @@ jobs:
           echo "CF ID: ${{ secrets.AWS_CF_ID }}"
           echo "Bucket: ${{ secrets.ACCESS_KEY_ID }}"
           echo "CF ID: ${{ secrets.SECRET_ACCESS_KEY }}"
-      - name: Create Env File
-        run: |
-          echo "NEXT_PUBLIC_SERVICE_DOMAIN=${{secrets.NEXT_PUBLIC_SERVICE_DOMAIN}}" >> .env
-          echo "NEXT_PUBLIC_API_KEY=${{secrets.NEXT_PUBLIC_API_KEY}}" >> .env
+
       - name: Deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}

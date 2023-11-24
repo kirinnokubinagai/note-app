@@ -30,6 +30,7 @@ jobs:
 
       - name: Build
         run: npm run build
+
       - name: Debug
         run: |
           echo "Bucket: ${{ secrets.AWS_S3_BUCKET }}"

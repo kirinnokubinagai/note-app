@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="fkex items-center justify-center mt-40">
+    <main className="flex flex-col items-center collmu justify-center mt-40">
       <div>
         <h3 className="font-medium text-5xl">Hello There. This is Note App</h3>
       </div>

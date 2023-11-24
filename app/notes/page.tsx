@@ -42,6 +42,7 @@ const NoteItem = ({ note }: NoteProps) => {
 
   const inputDate = new Date(note.createdAt);
   const outputDateTimeString = inputDate.toLocaleString("ja-JP", {
+    timeZone: "Asia/Tokyo",
     year: "numeric",
     month: "long",
     day: "numeric",

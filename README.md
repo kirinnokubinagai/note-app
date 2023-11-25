@@ -1,5 +1,36 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+### デプロイ
+
+github actions + S3 + CloudFront + Next.js + microCMS を使用。
+git push main で github actions から s3 に sync
+
+github に以下の環境変数を追加
+
+```
+ACCESS_KEY_ID: cloudformation、s3が利用できるIAMのユーザーのアクセスキー
+SECRET_ACCESS_KEY: cloudformation、s3が利用できるIAMのユーザーのシークレットアクセスキー
+AWS_CF_ID: awsのcloud frontのID
+AWS_S3_BUCKET: S3バケット名
+NEXT_PUBLIC_SERVICE_DOMAIN: microCMSのドメイン
+NEXT_PUBLIC_API_KEY: microCMSのAPIキー
+```
+
+cloud front 関数で`/`で終わったら `/index.html` に飛ばすように修正
+
+```
+function handler(event) {
+    const request = event.request
+    const uri = request.uri
+    if (uri.endsWith("/")) {
+        request.uri += "index.html"
+    } else if (!uri.includes(".")) {
+        request.uri += "/index.html"
+    }
+    return request
+}
+```
+
 ## Getting Started
 
 First, run the development server:
